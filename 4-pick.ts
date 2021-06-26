@@ -1,0 +1,29 @@
+type MyPick<T, Ks extends keyof T> = {
+  [K in Ks]: T[K];
+}
+
+
+/* _____________ Test Cases _____________ */
+import { Equal, Expect } from '@type-challenges/utils'
+
+type cases = [
+  Expect<Equal<Expected1, MyPick<Todo, 'title'>>>,
+  Expect<Equal<Expected2, MyPick<Todo, 'title' | 'completed'>>>,
+  // @ts-expect-error
+  MyPick<Todo, 'title' | 'completed' | 'invalid'>,
+]
+
+interface Todo {
+  title: string
+  description: string
+  completed: boolean
+}
+
+interface Expected1 {
+  title: string
+}
+
+interface Expected2 {
+  title: string
+  completed: boolean
+}
