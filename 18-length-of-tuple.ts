@@ -1,6 +1,5 @@
 type Length<T extends typeof tesla | typeof spaceX> = T extends { length: infer L } ? L : never;
 
-type x = Length<typeof tesla>
 
 /* _____________ Test Cases _____________ */
 import { Equal, Expect } from '@type-challenges/utils'
