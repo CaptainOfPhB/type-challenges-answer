@@ -16,6 +16,12 @@ type cases = [
 type error = TupleToObject<[[1, 2], {}]>
 
 
-/* _____________ My _____________ */
-// Tip: a easy way to get the element type of array/tuple is: T[number]
-// type Typle = [1, true, 'abc']; 
+/* _____________ Key _____________ */
+
+// A easy way to get the element type of array/tuple is: T[number]
+
+const array1 = [1, true, 'abc']; 
+type Array1EleType = (typeof array1)[number]; // string | number | boolean
+
+const array2 = [1, true, 'abc'] as const; 
+type Array2EleType = (typeof array2)[number]; // true | 1 | 'abc'
