@@ -10,3 +10,12 @@ type cases = [
   Expect<Equal<First<[]>, never>>,
   Expect<Equal<First<[undefined]>, undefined>>
 ]
+
+
+/* _____________ 思路 _____________ */
+
+/**
+ * 利用 infer 表示待推断的类型，可以将数组第一个元素表示为 infer F，然后剩下的元素表示为 ...any[]
+ * 这样 TS 会自动带入类型计算出 F 的类型
+ * 同理，也可以推导出最后一个元素的类型
+ */
