@@ -16,12 +16,16 @@ type cases = [
 type error = TupleToObject<[[1, 2], {}]>
 
 
-/* _____________ Key _____________ */
+/* _____________ 思路 _____________ */
 
-// A easy way to get the element type of array/tuple is: T[number]
+// 一个快速获取数组/元组中元素的方法是：T[number]
+// 注意加了 as const 之后的区别
+// 使用 typeof 可以将 JS 方便的转换为 TS
 
 const array1 = [1, true, 'abc']; 
-type Array1EleType = (typeof array1)[number]; // string | number | boolean
+type TypeofArrary1 = typeof array1; // (string | number | boolean)[]
+type Array1EleType = TypeofArrary1[number]; // string | number | boolean
 
 const array2 = [1, true, 'abc'] as const; 
+type TypeofArrary2 = typeof array2; // readonly [1, true, 'abc']
 type Array2EleType = (typeof array2)[number]; // true | 1 | 'abc'
