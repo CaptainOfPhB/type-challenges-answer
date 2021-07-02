@@ -1,4 +1,4 @@
-type DropString<Str, Chars extends string, RestChars extends string = ShiftString<Chars>> = Chars extends `${infer FirstChar}${infer anything}`
+type DropString<Str, Chars extends string, RestChars extends string = ShiftString<Chars>> = Chars extends `${infer FirstChar}${infer Anything}`
   ? Str extends `${infer Left}${FirstChar}${infer Right}`
     ? DropString<`${Left}${Right}`, FirstChar, RestChars>
     : DropString<Str, RestChars>
