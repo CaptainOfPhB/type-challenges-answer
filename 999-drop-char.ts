@@ -1,4 +1,4 @@
-type DropChar<S, R extends string> = S extends `${infer S1}${R}${infer S2}` ? DropChar<`${S1}${S2}`, R> : S;
+type DropChar<S, C extends string> = S extends `${infer L}${C}${infer R}` ? DropChar<`${L}${R}`, C> : S;
 
 
 /* _____________ Test Cases _____________ */
@@ -6,7 +6,10 @@ type DropChar<S, R extends string> = S extends `${infer S1}${R}${infer S2}` ? Dr
 import { Equal, Expect } from '@type-challenges/utils';
 
 type cases = [
+  // @ts-expect-error
+  Expect<Equal<DropChar<'butter fly!', ''>, 'butterfly!'>>,
   Expect<Equal<DropChar<'butter fly!', ' '>, 'butterfly!'>>,
+  Expect<Equal<DropChar<'butter fly!', '!'>, 'butter fly'>>,
   Expect<Equal<DropChar<'    butter fly!        ', ' '>, 'butterfly!'>>,
   Expect<Equal<DropChar<' b u t t e r f l y ! ', ' '>, 'butterfly!'>>,
   Expect<Equal<DropChar<' b u t t e r f l y ! ', 'b'>, '  u t t e r f l y ! '>>,
