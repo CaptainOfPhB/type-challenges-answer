@@ -1,11 +1,13 @@
-type DropString<S, R extends string, R2 extends string = GetSubstrAfter<R, GetFirstChar<R>>> = R extends `${infer F}${infer anything}`
-  ? S extends `${infer S1}${F}${infer S2}`
-    ? DropString<`${S1}${S2}`, F, R2>
-    : DropString<S, R2>
-  : S;
+type DropString<Str, Chars extends string, RestChars extends string = ShiftString<Chars>> = Chars extends `${infer FirstChar}${infer anything}`
+  ? Str extends `${infer Left}${FirstChar}${infer Right}`
+    ? DropString<`${Left}${Right}`, FirstChar, RestChars>
+    : DropString<Str, RestChars>
+  : Str;
 
-type GetFirstChar<S> = S extends `${infer F}${infer anything}` ? F : S;
-type GetSubstrAfter<S, Substr extends string> = S extends `${Substr}${infer After}` ? After : S;
+type GetFirstChar<Str> = Str extends `${infer FirstChar}${infer Anything}` ? FirstChar : Str;
+type GetRestChars<Str, Substr extends string> = Str extends `${Substr}${infer RestChars}` ? RestChars : Str;
+
+type ShiftString<S extends string> = GetRestChars<S, GetFirstChar<S>>;
 
 /* _____________ Test Cases _____________ */
 
